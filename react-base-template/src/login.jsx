@@ -1,116 +1,120 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export default function LoginPage (){
-    return(
-        <>
-            <div className="min-w-screen flex items-center justify-center bg-zinc-900">
-                <div className="w-[900px] h-[500px] flex-row overflow-hidden flex rounded-xl">
+export default function LoginPage() {
+  const [isSignup, setIsSignup] = useState(false);
 
-                    <motion.div
-                        className="bg-red-50 flex-1 rounded-l-xl flex flex-col items-center py-4 px-10">
-                        <span className="text-gray-900 pb-3 text-2xl font-bold text">Sign In</span>
-                        <div className="flex flex-row gap-4 pb-3 items-center justify-center">
-                            <span className="rounded-full hover:scale-110 ease-in duration-200 hover:cursor-pointer hover:shadow-[0_0_10px_#f8b4b4] bg-[#fbd5d5] p-1 px-2 h-auto w-auto"><i className="bi text-gray-900 bi-facebook"></i></span>
-                            <span className="rounded-full hover:scale-110 ease-in duration-200 hover:cursor-pointer hover:shadow-[0_0_10px_#f8b4b4] bg-[#fbd5d5] p-1 px-2 h-auto w-auto"><i className="bi text-gray-900 bi-google"></i></span>
-                            <span className="rounded-full hover:scale-110 ease-in duration-200 hover:cursor-pointer hover:shadow-[0_0_10px_#f8b4b4] bg-[#fbd5d5] p-1 px-2 h-auto w-auto"><i className="bi  text-gray-900 bi-linkedin"></i></span>
-                        </div>
-                        <span className="text-gray-900 pb-3">or use your account</span>
-                        <div className="flex flex-col gap-4 pb-3 ">
-                            <label htmlFor="email" className="text-gray-900">Email-</label>
-                            <input type="text" id="email" className="bg-[#fef3f3]
-                        text-gray-900
-                        border border-[#fbd5d5]
-                        rounded-lg
-                        px-3 py-2
-                        transition
-                        focus:outline-none
-                        focus:border-[#f8b4b4]
-                        focus:shadow-[0_0_12px_rgba(248,180,180,0.55)]"/>
-                            <label htmlFor="password" className="text-gray-900">Password-</label>
-                            <input type="password" id="password" className="bg-[#fef3f3]
-                        text-gray-900
-                        border border-[#fbd5d5]
-                        rounded-lg
-                        px-3 py-2
-                        transition
-                        focus:outline-none
-                        focus:border-[#f8b4b4]
-                        focus:shadow-[0_0_12px_rgba(248,180,180,0.55)]"/>
+  const transition = { duration: 0.7, ease: "easeInOut" };
 
-                        </div>
-                        <span className="text-gray-900 pb-3">Forgot your password?</span>
-                        <button className="
-                                        !bg-red-500
-                                        !px-10
-                                        !py-2
-                                        !h-auto
-                                        !w-auto
-                                        !rounded-lg
-                                        !text-white
-                                        !hover:shadow-[0_0_20px_rgba(248,180,180,0.55)]
+  return (
+    <div className="min-h-screen w-screen flex items-center justify-center bg-[var(--bg-dark)]">
+      <div className="relative w-225 h-130 rounded-xl overflow-hidden shadow-2xl bg-white">
+        {/* SIGN IN */}
+        <motion.div
+          animate={{ x: isSignup ? "-100%" : "0%" }}
+          transition={transition}
+          className="absolute left-0 top-0 w-1/2 h-full
+                     bg-[var(--primary-light)]
+                     flex flex-col items-center justify-center px-10"
+        >
+          <h2 className="text-2xl font-bold text-[var(--text-dark)] mb-4">
+            Sign In
+          </h2>
 
-                                        hover:!bg-red-600
-                                        active:!bg-red-700
+          <div className="flex gap-4 mb-3">
+            {["facebook", "google", "linkedin"].map((icon) => (
+              <i
+                key={icon}
+                className={`
+                  bi bi-${icon}
+                  social-icon
+                  cursor-pointer text-lg
+                  w-10 h-10 flex items-center justify-center
+                  rounded-full
+                  transition-all duration-300
+                  hover:scale-110
+                  hover:shadow-[0_0_16px_rgba(34,197,94,0.6)]
+                `}
+              />
+            ))}
+          </div>
 
-                                        focus:!outline-none
-                                        focus:!ring-0
-                                        active:!outline-none
-                                        active:!ring-0
-                                        hover:!ring-0
-                                        hover:!outline-none
+          <span className="text-sm mb-3">or use your account</span>
 
-                                        transition-colors
-                                        duration-200
-                  ">
-                            Sign In
-                        </button>
+          <input className="input" placeholder="Email" />
+          <input className="input" type="password" placeholder="Password" />
 
+          <button className="btn-primary mt-5">Sign In</button>
+        </motion.div>
 
-                    </motion.div>
-                    <motion.div
-                        className="bg-red-500 flex-1 rounded-r-xl flex flex-col items-center justify-center py-4 px-10" >
-                        <span className="pb-5 text-red-50 text-center text-3xl font-bold">New Here?</span>
-                        <button
-                            className="
-                                    !bg-transparent
-                                    !px-10
-                                    !py-2
-                                    !h-auto
-                                    !w-auto
-                                    !rounded-lg
+        <motion.div
+          animate={{ x: isSignup ? "0%" : "100%" }}
+          transition={transition}
+          className="absolute right-0 top-0 w-1/2 h-full
+                     bg-[var(--primary-light)]
+                     flex flex-col items-center justify-center px-10"
+        >
+          <h2 className="text-2xl font-bold text-[var(--text-dark)] mb-4">
+            Create Account
+          </h2>
 
-                                    !text-red-50
-                                    !border
-                                    !border-red-200
+          <div className="flex gap-4 mb-3">
+            {["facebook", "google", "linkedin"].map((icon) => (
+              <i
+                key={icon}
+                className={`
+                  bi bi-${icon}
+                  social-icon
+                  cursor-pointer text-lg
+                  w-10 h-10 flex items-center justify-center
+                  rounded-full
+                  transition-all duration-300
+                  hover:scale-110
+                  hover:shadow-[0_0_16px_rgba(34,197,94,0.6)]
+                `}
+              />
+            ))}
+          </div>
 
-                                    hover:!bg-red-50
-                                    hover:!border-red-300
-                                    hover:!text-red-400
-                                    hover:!shadow-[0_0_16px_rgba(248,180,180,0.45)]
+          <span className="text-sm mb-3">or use your email</span>
 
-                                    active:!bg-red-100
-                                    active:!border-red-400
+          <input className="input" placeholder="Name" />
+          <input className="input" placeholder="Email" />
+          <input className="input" type="password" placeholder="Password" />
+          <input className="input" placeholder="Confirm Password" />
 
-                                    focus:!outline-none
-                                    focus:!ring-0
-                                    active:!outline-none
-                                    active:!ring-0
+          <button className="btn-primary mt-5">Sign Up</button>
+        </motion.div>
 
-                                    ease-in
-                                    duration-500
-                                  "
-                        >
-                            Sign Up
-                        </button>
+        <motion.div
+          animate={{ x: isSignup ? "-100%" : "0%" }}
+          transition={transition}
+          className="absolute right-0 top-0 w-1/2 h-full
+                     bg-[var(--primary)]
+                     text-white flex flex-col items-center
+                     justify-center px-10 text-center"
+        >
+          <h2 className="text-3xl font-bold mb-4">
+            {isSignup ? "Welcome Back!" : "Hello!"}
+          </h2>
 
-                    </motion.div>
+          <p className="mb-6 text-sm">
+            {isSignup
+              ? "Already have an account? Sign in here"
+              : "Enter your details and start your journey with us"}
+          </p>
 
-                </div>
-            </div>
-
-
-        </>
-    )
+          <button
+            onClick={() => setIsSignup(!isSignup)}
+            className="border border-white px-8 py-2 rounded-lg
+                       hover:bg-white hover:text-[var(--primary)]
+                       transition"
+          >
+            {isSignup ? "Sign In" : "Sign Up"}
+          </button>
+        </motion.div>
+      </div>
+    </div>
+  );
 }
