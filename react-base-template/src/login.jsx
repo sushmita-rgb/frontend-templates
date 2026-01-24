@@ -10,7 +10,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-[var(--bg-dark)]">
       <div className="relative w-225 h-130 rounded-xl overflow-hidden shadow-2xl bg-white">
-        {/* SIGN IN */}
         <motion.div
           animate={{ x: isSignup ? "-100%" : "0%" }}
           transition={transition}
