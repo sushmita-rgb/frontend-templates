@@ -3,6 +3,7 @@ import Layout from "./Layout/Layout.jsx";
 import LoginPage from "./login.jsx";
 import AboutUs from "./AboutUs/AboutUs.jsx";
 import MainPage from "./navPage.jsx";
+import Premium from "./premiumPage.jsx";
 
 function Home() {
   return <h1 className="text-center text-3xl mt-10">Home Page</h1>;
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="home" element={<Home />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="about" element={<AboutUs />} />
+          <Route path="premium" element={<Premium />} />
       </Route>
     </Routes>
   );
