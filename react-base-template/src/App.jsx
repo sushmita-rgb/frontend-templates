@@ -2,24 +2,21 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout.jsx";
 import LoginPage from "./login.jsx";
 import AboutUs from "./AboutUs/AboutUs.jsx";
-import MainPage from "./navPage.jsx";
+import MainPage from "./navPage.jsx"; // Navigation Table
 import Premium from "./premiumPage.jsx";
-import Steps from "./components/heroSteps.jsx";
-
-function Home() {
-  return <h1 className="text-center text-3xl mt-10">Home Page</h1>;
-}
+import HeroPage from "./components/HeroPage.jsx";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<MainPage />} /> {/* "/" */}
-          <Route path="home" element={<Home />} />
+        <Route index element={<MainPage />} />
+
+        <Route path="hero" element={<HeroPage />} />
+
         <Route path="login" element={<LoginPage />} />
         <Route path="about" element={<AboutUs />} />
-          <Route path="premium" element={<Premium />} />
-        <Route path="steps" element={<Steps />} />
+        <Route path="premium" element={<Premium />} />
       </Route>
     </Routes>
   );
