@@ -8,6 +8,7 @@ export default function NavTable() {
     { name: "About", path: "/about" },
     { name: "Login & Sign Up", path: "/login" },
     { name: "Premium", path: "/premium" },
+    { name: "Dashboard", path: "/dashboard" },
   ];
 
   return (
