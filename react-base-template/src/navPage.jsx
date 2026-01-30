@@ -12,7 +12,7 @@ export default function NavTable() {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-900 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-green-100 p-6">
       <div className="w-full max-w-2xl bg-[#ecfdf5] rounded-2xl overflow-hidden border border-green-600/40 shadow-[0_0_20px_rgba(22,163,74,0.15)]">
         <div className="px-6 py-4 text-center text-green-900 text-xl font-semibold border-b border-green-600/20">
           Navigation Table

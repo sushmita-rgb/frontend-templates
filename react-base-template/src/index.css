@@ -6,6 +6,9 @@
   --text-dark: #14532d;
   --bg-dark: #020617;
 }
+body {
+  @apply bg-gray-50 text-gray-900;
+}
 
 .input {
   width: 100%;
