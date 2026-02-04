@@ -6,7 +6,6 @@ export default function Header() {
   return (
     <header className="flex shadow-md py-4 px-4 sm:px-10 bg-green-100 min-h-[70px] tracking-wide relative z-50">
       <div className="flex flex-wrap items-center justify-between gap-5 w-full">
-        {/* LOGO */}
         <a href="/" className="max-sm:hidden">
           <img
             src="https://readymadeui.com/readymadeui.svg"
@@ -22,7 +21,6 @@ export default function Header() {
           />
         </a>
 
-        {/* NAV MENU */}
         <div
           className={`max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:w-1/2 max-lg:min-w-[300px]
           max-lg:bg-white max-lg:p-6 max-lg:shadow-md max-lg:overflow-auto z-50
@@ -30,7 +28,6 @@ export default function Header() {
           ${menuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:static lg:translate-x-0 lg:!block`}
         >
-          {/* CLOSE BUTTON */}
           <button
             onClick={() => setMenuOpen(false)}
             className="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border border-gray-200"
