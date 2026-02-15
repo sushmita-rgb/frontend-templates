@@ -1,53 +1,170 @@
-export default function Steps(){
-    return (
-        <div className="relative">
-            <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-indigo-800 to-purple-800 text-white">
-                <div className="flex flex-col gap-4 lg:flex-row h-full w-full p-10 items-start">
+import React from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
-                    <div className="flex flex-col gap-2">
-                        <p className="text-9xl self-start bg-gradient-to-r from-[#38bdf8] to-[#a5b4fc] text-transparent bg-clip-text font-extrabold tracking-tight">
-                            Step 1
-                        </p>
+/* ---------------- SVG ICONS ---------------- */
 
-                        <p className="text-8xl text-[#e0f2fe]">LOREM IPSUM</p>
+function AccountIcon() {
+  return (
+    <svg viewBox="0 0 120 120" className="w-28 h-28" fill="none">
+      <circle cx="60" cy="40" r="18" className="fill-green-600" />
+      <rect
+        x="25"
+        y="65"
+        width="70"
+        height="30"
+        rx="14"
+        className="fill-green-200"
+      />
+    </svg>
+  );
+}
 
-                        {/* centered paragraph */}
-                        <p className="self-center text-center max-w-2xl text-[#c7d2fe] leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae consequuntur dolores eius et expedita facilis maiores
-                            praesentium quidem, quos. Accusamus cum dolores dolorum ex fugit ipsam magni minus nostrum, recusandae. At, atque aut cumque cupiditate dicta eum
-                            eveniet facere ipsum iste, laboriosam magni
-                            minus quaerat quidem sunt suscipit tempore velit. Adipisci aut explicabo nulla rem, sit tenetur totam voluptatum.
-                        </p>
-                    </div>
+function DoctorIcon() {
+  return (
+    <svg viewBox="0 0 120 120" className="w-28 h-28" fill="none">
+      <rect
+        x="20"
+        y="30"
+        width="80"
+        height="60"
+        rx="16"
+        className="fill-emerald-200"
+      />
+      <path
+        d="M60 45 v30 M45 60 h30"
+        stroke="#166534"
+        strokeWidth="6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-                    {/* centered image */}
-                    <div className="flex flex-row items-center justify-center gap-2">
-                        <img
-                            src="https://images.pexels.com/photos/18681383/pexels-photo-18681383.jpeg"
-                            className="h-64 w-auto rounded-2xl shadow-2xl"
-                            alt="asset"
-                        />
-                    </div>
+function BuildIcon() {
+  return (
+    <svg viewBox="0 0 120 120" className="w-28 h-28" fill="none">
+      <rect
+        x="25"
+        y="35"
+        width="70"
+        height="50"
+        rx="12"
+        className="fill-green-100"
+      />
+      <rect x="40" y="50" width="12" height="20" className="fill-green-500" />
+      <rect x="58" y="45" width="12" height="25" className="fill-green-700" />
+      <rect x="76" y="55" width="12" height="15" className="fill-green-900" />
+    </svg>
+  );
+}
 
-                </div>
-            </div>
+function LaunchIcon() {
+  return (
+    <svg viewBox="0 0 120 120" className="w-28 h-28" fill="none">
+      <path d="M60 20 L80 70 L60 60 L40 70 Z" className="fill-green-600" />
+      <rect x="54" y="60" width="12" height="30" className="fill-green-300" />
+    </svg>
+  );
+}
 
+/* ---------------- STEP CARD ---------------- */
 
+function StepSlide({ number, title, text, icon, bg }) {
+  return (
+    <section
+      className={`sticky top-0 h-screen flex items-center justify-center ${bg}`}
+    >
+      <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-12 px-8 items-center">
+        {/* TEXT */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="relative inline-block">
+            <span className="text-8xl font-extrabold text-green-700/10">
+              {number}
+            </span>
+            <span className="absolute inset-0 text-8xl font-extrabold text-green-700 blur-sm animate-pulse">
+              {number}
+            </span>
+          </div>
 
-            <div
-                className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-indigo-800 to-purple-800 text-white">
-                <h2 className="text-4xl font-bold">The Second slide</h2>
-                <p className="mt-2">Scroll Down for next slide</p>
-            </div>
-            <div
-                className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-purple-800 to-pink-800 text-white">
-                <h2 className="text-4xl font-bold">The Third slide</h2>
-                <p className="mt-2">Scroll Down</p>
-            </div>
-            <div
-                className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-200 to-indigo-100 text-black">
-                <h2 className="text-4xl font-bold">The Fourth slide</h2>
-            </div>
-        </div>
-    )
+          <h2 className="text-4xl font-bold text-green-900 mt-4">{title}</h2>
+          <p className="mt-4 text-lg text-green-900/70 leading-relaxed">
+            {text}
+          </p>
+
+          <button className="mt-6 px-6 py-3 bg-green-700 text-white rounded-xl font-semibold shadow-lg hover:bg-green-800 transition">
+            Continue
+          </button>
+        </motion.div>
+
+        {/* ICON CARD WITH PARALLAX */}
+        <motion.div
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+          whileHover={{ y: -12 }}
+          className="relative"
+        >
+          <div className="rounded-3xl bg-white p-10 shadow-2xl border border-green-100">
+            {icon}
+          </div>
+
+          <div className="absolute -z-10 inset-0 rounded-3xl bg-green-700/10 blur-2xl scale-110" />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN ---------------- */
+
+export default function StepsAdvanced() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 90, damping: 20 });
+
+  return (
+    <div className="relative">
+      <motion.div
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-1 bg-green-700 origin-left z-50"
+      />
+
+      <StepSlide
+        number="01"
+        title="Create Patient Account"
+        text="Register securely and create your healthcare profile. Store your basic details and preferences for faster appointment booking."
+        icon={<AccountIcon />}
+        bg="bg-gradient-to-b from-green-100 to-green-200"
+      />
+
+      <StepSlide
+        number="02"
+        title="Find Verified Doctors"
+        text="Browse specialists, check availability, and compare profiles before choosing the right doctor for your needs."
+        icon={<DoctorIcon />}
+        bg="bg-gradient-to-b from-green-50 to-green-100"
+      />
+
+      <StepSlide
+        number="03"
+        title="Book & Manage Visits"
+        text="Schedule appointments, manage timings, and keep your medical interactions organized in one dashboard."
+        icon={<BuildIcon />}
+        bg="bg-gradient-to-b from-white to-green-50"
+      />
+
+      <StepSlide
+        number="04"
+        title="Start Your Care Journey"
+        text="Consult, follow up, and track your healthcare progress with digital records and reminders."
+        icon={<LaunchIcon />}
+        bg="bg-white"
+      />
+    </div>
+  );
 }

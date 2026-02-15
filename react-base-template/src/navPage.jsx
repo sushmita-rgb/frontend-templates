@@ -1,15 +1,33 @@
 import { useNavigate } from "react-router-dom";
 
-export default function NavTable() {
+/*
+BACKEND NOTE:
+Replace NAV_PAGES with API response later
+Example: GET /api/navigation-pages
+*/
+
+const NAV_PAGES = [
+  { id: "hero", name: "Hero Page", path: "/hero" },
+  { id: "about", name: "About", path: "/about" },
+  { id: "login", name: "Login & Sign Up", path: "/login" },
+  { id: "premium", name: "Premium", path: "/premium" },
+  { id: "dashboard", name: "Dashboard", path: "/dashboard" },
+];
+
+export default function NavTable({
+  pages = NAV_PAGES, // backend can pass data
+  onNavigatePage = null, // optional hook
+}) {
   const navigate = useNavigate();
 
-  const pages = [
-    { name: "Hero Page", path: "/hero" },
-    { name: "About", path: "/about" },
-    { name: "Login & Sign Up", path: "/login" },
-    { name: "Premium", path: "/premium" },
-    { name: "Dashboard", path: "/dashboard" },
-  ];
+  const handleNavigate = (page) => {
+    // optional backend / analytics hook
+    if (onNavigatePage) {
+      onNavigatePage(page);
+    }
+
+    navigate(page.path);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-100 p-6">
@@ -29,7 +47,7 @@ export default function NavTable() {
           <tbody>
             {pages.map((page, index) => (
               <tr
-                key={page.name}
+                key={page.id || page.name}
                 className="
                   odd:bg-green-50
                   even:bg-green-100
@@ -43,7 +61,7 @@ export default function NavTable() {
 
                 <td className="px-6 py-3 text-center">
                   <button
-                    onClick={() => navigate(page.path)}
+                    onClick={() => handleNavigate(page)}
                     className="
                       px-5 py-1.5
                       rounded-lg

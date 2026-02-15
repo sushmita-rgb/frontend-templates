@@ -1,306 +1,301 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Trophy,
-  Rocket,
-  Zap,
-  Lightbulb,
-  Heart,
-  TrendingUp,
-  Github,
-  Linkedin,
-} from "lucide-react";
+import { Lightbulb, Heart, TrendingUp, Zap } from "lucide-react";
 
-import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa";
+/*
+BACKEND NOTE:
+All static content moved into config objects.
+Backend can replace this with API response later.
+Example: const aboutData = await GET /api/about
+*/
 
-/* ---------------- COMMON ANIMATIONS ---------------- */
+const ABOUT_CONTENT = {
+  hero: {
+    title: "About Our Healthcare Platform",
+    highlight: "Healthcare Platform",
+    desc1:
+      "We provide a modern digital healthcare platform that helps patients easily find doctors, book appointments, and manage their medical journey — all in one secure place.",
+    desc2:
+      "Our mission is to reduce waiting time and improve healthcare access through simple, reliable digital tools.",
+    tags: ["Online Booking", "Verified Doctors", "Reviews", "Secure Records"],
+  },
+
+  platform: {
+    title: "Trusted Digital Health Infrastructure",
+    text1:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt nisl in bibendum luctus.",
+    text2: "Modern healthcare needs organized platforms and real-time access.",
+    image: "/doc9.png", // BACKEND: replace with CDN / uploaded image URL
+  },
+
+  process: {
+    title: "How Our Care Process Works",
+    text1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    text2:
+      "Patients can discover doctors, book slots, and track visits through a single dashboard.",
+  },
+
+  features: [
+    {
+      id: "booking",
+      icon: "lightbulb",
+      title: "Easy Booking",
+      description: "Quick appointment flow.",
+    },
+    {
+      id: "patient",
+      icon: "heart",
+      title: "Patient Friendly",
+      description: "Comfort focused UI.",
+    },
+    {
+      id: "management",
+      icon: "trending",
+      title: "Smart Management",
+      description: "Everything in one place.",
+    },
+  ],
+
+  impact: {
+    title: "Built for Modern Digital Healthcare",
+    text: "Faster access, better organization, improved patient experience.",
+  },
+};
+
+/* ---------------- ICON MAPPER — backend safe ---------------- */
+
+const ICON_MAP = {
+  lightbulb: Lightbulb,
+  heart: Heart,
+  trending: TrendingUp,
+};
+
+/* ---------------- ANIMATIONS ---------------- */
+
+const containerStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.22 } },
+};
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 80 },
+  hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 2.1, ease: "easeOut" },
+    transition: { duration: 0.85, ease: "easeOut" },
   },
 };
 
-const stagger = {
-  hidden: {},
+const imageAnim = {
+  hidden: { opacity: 0, x: 70, scale: 0.95 },
   visible: {
-    transition: { staggerChildren: 0.25 },
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 1.0, ease: "easeOut" },
   },
 };
 
-/* ---------------- SKILL ICONS ---------------- */
+/* ---------------- HERO ---------------- */
 
-const skillIcons = {
-  react: <FaReact className="text-sky-500" />,
-  html: <FaHtml5 className="text-orange-500" />,
-  css: <FaCss3Alt className="text-blue-500" />,
-  js: <FaJs className="text-yellow-400" />,
-  node: <FaNodeJs className="text-green-500" />,
-};
-
-/* ---------------- TEAM DATA ---------------- */
-
-const teamMembers = [
-  {
-    name: "Uddhav Bhardwaj",
-    role: "Frontend Developer",
-    image: "https://avatars.githubusercontent.com/u/237316139",
-    bio: "Passionate frontend developer focused on clean UI and smooth user experiences.",
-    skills: ["react", "html", "css", "js"],
-    github: "https://github.com/bhrdwjuddhv",
-    linkedin: "https://www.linkedin.com/in/uddhavbhardwajhere/",
-  },
-  {
-    name: "Sushmita Singh",
-    role: "Frontend Developer",
-    image: "https://avatars.githubusercontent.com/u/193432954?v=4",
-    bio: "Creative developer who loves turning ideas into responsive, user-friendly web apps.",
-    skills: ["react", "html", "css", "node"],
-    github: "https://github.com/sushmita-rgb",
-    linkedin: "https://www.linkedin.com/in/sushmita-singh-003011319/",
-  },
-];
-
-/* ---------------- HERO SECTION ---------------- */
-
-function HeroSection() {
+function AboutHero({ data }) {
   return (
     <motion.section
-      variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      className="relative overflow-hidden py-20 md:py-32"
+      viewport={{ once: true }}
+      className="py-28 bg-gradient-to-br from-green-50 via-white to-emerald-50"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] via-[#d1fae5] to-[#a7f3d0]" />
-
-      <div className="relative mx-auto max-w-4xl px-6 text-center">
+      <motion.div
+        variants={containerStagger}
+        className="mx-auto max-w-3xl px-6 text-center"
+      >
         <motion.h1
           variants={fadeUp}
-          className="text-4xl font-bold text-[#064e3b] sm:text-6xl"
+          className="text-4xl sm:text-5xl font-bold text-green-900"
         >
-          What is <span className="text-[#15803d]">ProjectName</span>?
+          About Our <span className="text-green-700">{data.highlight}</span>
         </motion.h1>
 
-        <motion.p variants={fadeUp} className="mt-8 text-lg text-[#064e3b]/80">
-          ProjectName is built to simplify complexity, empower users, and
-          deliver innovation that truly matters.
+        <motion.p variants={fadeUp} className="mt-8 text-lg text-green-900/80">
+          {data.desc1}
+        </motion.p>
+
+        <motion.p variants={fadeUp} className="mt-4 text-green-900/70">
+          {data.desc2}
+        </motion.p>
+
+        <motion.div
+          variants={fadeUp}
+          className="mt-10 flex flex-wrap justify-center gap-4"
+        >
+          {data.tags.map((t) => (
+            <span
+              key={t}
+              className="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm shadow-sm"
+            >
+              {t}
+            </span>
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+/* ---------------- PLATFORM INFO ---------------- */
+
+function PlatformInfo({ data }) {
+  return (
+    <motion.section
+      variants={containerStagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="py-24 bg-white"
+    >
+      <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-14 items-center">
+        <motion.div variants={imageAnim} className="flex justify-center">
+          <div className="bg-green-100 p-6 rounded-3xl shadow-xl">
+            {/* BACKEND: image URL comes from API */}
+            <img
+              src={data.image}
+              alt="Healthcare"
+              className="w-[440px] h-[480px] object-contain"
+            />
+          </div>
+        </motion.div>
+
+        <motion.div variants={containerStagger}>
+          <motion.h2
+            variants={fadeUp}
+            className="text-3xl font-bold text-green-900"
+          >
+            {data.title}
+          </motion.h2>
+
+          <motion.p variants={fadeUp} className="mt-6 text-green-900/70">
+            {data.text1}
+          </motion.p>
+
+          <motion.p variants={fadeUp} className="mt-4 text-green-900/60">
+            {data.text2}
+          </motion.p>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
+/* ---------------- PROCESS ---------------- */
+
+function CareProcess({ data }) {
+  return (
+    <motion.section
+      variants={containerStagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="py-24 bg-green-50"
+    >
+      <div className="mx-auto max-w-5xl px-6 text-center">
+        <motion.h2
+          variants={fadeUp}
+          className="text-3xl font-bold text-green-900"
+        >
+          {data.title}
+        </motion.h2>
+
+        <motion.p variants={fadeUp} className="mt-6 text-green-900/70">
+          {data.text1}
+        </motion.p>
+
+        <motion.p variants={fadeUp} className="mt-4 text-green-900/60">
+          {data.text2}
         </motion.p>
       </div>
     </motion.section>
   );
 }
 
-/* ---------------- WHY THIS PROJECT ---------------- */
+/* ---------------- FEATURES ---------------- */
 
-function WhyThisProjectSection() {
-  const features = [
-    {
-      icon: <Lightbulb className="h-8 w-8" />,
-      title: "Innovation",
-      description: "Pushing boundaries with creative technology.",
-    },
-    {
-      icon: <Heart className="h-8 w-8" />,
-      title: "Impact",
-      description: "Every feature is built to make a difference.",
-    },
-    {
-      icon: <TrendingUp className="h-8 w-8" />,
-      title: "Scalability",
-      description: "Designed to grow from startup to enterprise.",
-    },
-  ];
-
+function WhyPlatform({ features }) {
   return (
     <motion.section
-      variants={fadeUp}
+      variants={containerStagger}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      className="py-20"
+      viewport={{ once: true }}
+      className="py-20 bg-white"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-4">
         <motion.h2
           variants={fadeUp}
-          className="mb-12 text-center text-4xl font-bold text-[#064e3b]"
+          className="text-4xl font-bold text-center text-green-900 mb-14"
         >
-          Why <span className="text-[#15803d]">This Project</span>?
+          Why Choose This Platform?
         </motion.h2>
 
         <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          variants={containerStagger}
           className="grid gap-8 md:grid-cols-3"
         >
-          {features.map((f) => (
-            <motion.div
-              key={f.title}
-              variants={fadeUp}
-              className="rounded-2xl bg-white p-8 shadow-lg transition hover:shadow-xl"
-            >
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#15803d] to-[#16a34a] text-white">
-                {f.icon}
-              </div>
-              <h3 className="text-xl font-bold text-[#064e3b]">{f.title}</h3>
-              <p className="mt-2 text-[#064e3b]/70">{f.description}</p>
-            </motion.div>
-          ))}
+          {features.map((f) => {
+            const Icon = ICON_MAP[f.icon];
+            return (
+              <motion.div
+                key={f.id} // backend-safe key
+                variants={fadeUp}
+                className="bg-green-50 p-8 rounded-2xl shadow-md hover:shadow-xl transition"
+              >
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-green-600 text-white">
+                  {Icon && <Icon />}
+                </div>
+                <h3 className="font-bold text-xl text-green-900">{f.title}</h3>
+                <p className="text-green-900/70 mt-2">{f.description}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </motion.section>
   );
 }
 
-/* ---------------- TEAM SECTION ---------------- */
+/* ---------------- IMPACT ---------------- */
 
-function TeamSection() {
+function HealthImpact({ data }) {
   return (
     <motion.section
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      className="relative py-28 bg-gradient-to-b from-[#ecfdf5] via-white to-[#f0fdf4]"
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.9 }}
+      viewport={{ once: true }}
+      className="py-24 bg-white"
     >
-      <div className="mx-auto max-w-6xl px-6">
-        <motion.div variants={fadeUp} className="mb-20 text-center">
-          <h2 className="text-4xl font-bold text-[#064e3b] sm:text-5xl">
-            Meet the <span className="text-[#15803d]">Team</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[#064e3b]/70">
-            Passionate developers crafting beautiful, scalable web experiences.
-          </p>
-        </motion.div>
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mx-auto grid max-w-4xl gap-12 sm:grid-cols-2"
-        >
-          {teamMembers.map((m) => (
-            <motion.div
-              key={m.name}
-              variants={fadeUp}
-              className="group relative rounded-3xl bg-white p-8 text-center shadow-md
-              transition-all duration-500 hover:-translate-y-2
-              hover:shadow-[0_18px_45px_rgba(22,163,106,0.18)]"
-            >
-              <div
-                className="pointer-events-none absolute -inset-0.5 rounded-3xl 
-                bg-gradient-to-r from-[#bbf7d0] to-[#86efac]
-                opacity-0 blur-md transition duration-500 group-hover:opacity-60"
-              />
-
-              <div className="relative">
-                <div className="relative mx-auto mb-6 h-28 w-28">
-                  <img
-                    src={m.image}
-                    alt={m.name}
-                    className="h-full w-full rounded-full border-4 border-white
-                    object-cover shadow-lg transition-transform duration-500
-                    group-hover:scale-110"
-                  />
-                </div>
-
-                <h3 className="text-xl font-bold text-[#064e3b]">{m.name}</h3>
-                <p className="mb-4 text-sm font-semibold text-[#15803d]">
-                  {m.role}
-                </p>
-
-                <p className="mb-6 text-sm leading-relaxed text-[#064e3b]/70">
-                  {m.bio}
-                </p>
-
-                <div className="mb-6 flex justify-center gap-4 text-2xl">
-                  {m.skills.map((skill) => (
-                    <span key={skill}>{skillIcons[skill]}</span>
-                  ))}
-                </div>
-
-                <div className="flex justify-center gap-4">
-                  <a
-                    href={m.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-xl bg-[#064e3b] p-3 text-white hover:bg-[#15803d]"
-                  >
-                    <Github size={18} />
-                  </a>
-                  <a
-                    href={m.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-xl bg-[#064e3b] p-3 text-white hover:bg-[#15803d]"
-                  >
-                    <Linkedin size={18} />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className="mx-auto max-w-4xl text-center bg-green-700 text-white p-14 rounded-3xl shadow-xl">
+        <Zap className="mx-auto mb-4 h-10 w-10" />
+        <h2 className="text-3xl font-bold">{data.title}</h2>
+        <p className="mt-4 opacity-90">{data.text}</p>
       </div>
     </motion.section>
   );
 }
 
-/* ---------------- HACKATHON IMPACT ---------------- */
-
-function HackathonImpactSection() {
-  return (
-    <motion.section
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      className="py-20"
-    >
-      <div className="mx-auto max-w-4xl px-6">
-        <motion.div
-          variants={fadeUp}
-          className="relative rounded-3xl bg-gradient-to-br from-[#064e3b] via-[#15803d] to-[#16a34a] p-12 text-center text-white shadow-2xl"
-        >
-          <Trophy className="absolute right-8 top-8 h-16 w-16 text-white/20" />
-
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm">
-            <Zap className="h-4 w-4" /> Hackathon Ready
-          </div>
-
-          <h2 className="mt-6 text-4xl font-bold">
-            Built to Win <br />
-            <span className="text-[#a7f3d0]">Hackathons</span>
-          </h2>
-
-          <p className="mt-6 text-white/80">
-            Engineered with passion, precision, and performance.
-          </p>
-
-          <button className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[#15803d] hover:scale-105">
-            <Rocket className="h-5 w-5" /> Explore Project
-          </button>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
-
-/* ---------------- MAIN EXPORT ---------------- */
+/* ---------------- EXPORT ---------------- */
 
 export default function AboutUs() {
+  // BACKEND: replace with API call later
+  const data = ABOUT_CONTENT;
+
   return (
     <>
-      <HeroSection />
-      <WhyThisProjectSection />
-      <TeamSection />
-      <HackathonImpactSection />
+      <AboutHero data={data.hero} />
+      <PlatformInfo data={data.platform} />
+      <CareProcess data={data.process} />
+      <WhyPlatform features={data.features} />
+      <HealthImpact data={data.impact} />
     </>
   );
 }
